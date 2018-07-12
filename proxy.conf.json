@@ -1,0 +1,8 @@
+
+{
+  "/finca/*": {
+    "target": "https://localhotst:8000",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
