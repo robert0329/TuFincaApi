@@ -2,7 +2,7 @@ const DbConnection = require('../db/connections');
 const conexion = DbConnection();
 function MetodosDB() {
     this.seleccionar = function (respuesta) {
-        conexion.query('select * from fincas', function (error, resultado) {
+        conexion.query('select * from empleados', function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' })
             } else {
@@ -12,7 +12,7 @@ function MetodosDB() {
     }
 
     this.seleccionarId = function (id, respuesta) {
-        conexion.query('select * from fincas where id=?', id, function (error, resultado) {
+        conexion.query('select * from empleados where id=?', id, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
@@ -21,7 +21,7 @@ function MetodosDB() {
         })
     }
     this.seleccionarNombre = function (nombre, respuesta) {
-        conexion.query('select * from fincas where nombre=?', nombre, function (error, resultado) {
+        conexion.query('select * from empleados where nombre=?', nombre, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
@@ -30,7 +30,7 @@ function MetodosDB() {
         })
     }
     this.insertar = function (datos, respuesta) {
-        conexion.query('insert into fincas set ?', datos, function (error, resultado) {
+        conexion.query('insert into empleados set ?', datos, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
@@ -39,7 +39,7 @@ function MetodosDB() {
         })
     }
     this.actualizar = function (datos, respuesta) {
-        conexion.query('update fincas set ? where id = ?', [datos, datos.id], function (error, resultado) {
+        conexion.query('update empleados set ? where id = ?', [datos, datos.id], function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
@@ -49,10 +49,10 @@ function MetodosDB() {
     }
     this.delete = function (id, respuesta)
      {
-        conexion.query('select * from fincas where id=?', id, function (error, result) {
+        conexion.query('select * from empleados where id=?', id, function (error, result) {
             console.log(result);
             if (result) {
-                conexion.query('delete from fincas where id = ?', id, function (error, resultado) {
+                conexion.query('delete from empleados where id = ?', id, function (error, resultado) {
                     if (error) {
                         respuesta.send({ estado: 'Error' });
                     } else {

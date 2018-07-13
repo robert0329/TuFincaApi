@@ -1,26 +1,23 @@
-var express = require('express');
-var bodyparser = require('body-parser');
+const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
-var app = express();
-
-app.set('port', process.env.PORT || 8000);
-//middlewares
-app.use(morgan('dev'));
-app.use(bodyparser.urlencoded({extended: true}));
-app.use(cors());
-app.use(bodyparser.json());
-
-//Routes
-var connection = require('./db/connections');
-var route = require('./Routes/routes');
+const app = express();
 
 //settings
-connection.inicia();
-route.configurar(app); 
+app.set('port', process.env.PORT || 8000);
 
- app.listen(app.get('port'), () =>{
-  console.log('server on port ' + app.get('port'));
+//middlewares
+app.use(morgan('dev'));
+app.use(cors());
+app.use(bodyParser.json());
+
+//routes
+require('./Routes/FincaRoutes')(app);
+require('./Routes/EmpleadoRoutes')(app);
+
+//statics files
+app.listen(app.get('port'), () =>{
+    console.log('server on port ' + app.get('port'));
 });
-

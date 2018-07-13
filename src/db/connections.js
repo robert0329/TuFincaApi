@@ -1,21 +1,11 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-function Conexion(){
-    this.pool = null;
-
-    this.inicia = function(){
-        this.pool = mysql.createPool({
-            connectionLimit:10,
-            host:'localhost',
-            user:'root',
-            password:'',
-            database:'finca'
-        })
-    }
-    this.obtener= function(callback){
-        this.pool.getConnection(function(error,connection){
-            callback(error, connection);
-        })
-    }
-}
-module.exports = new Conexion();
+module.exports = () => {
+    return mysql.createConnection({
+        host: 'localhost',
+        user: 'root', //root
+        password: '',
+        database: 'finca',
+        
+    });
+};
