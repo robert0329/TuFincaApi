@@ -1,4 +1,4 @@
-var db = require('./queries');
+var db = require('../Funciones/finca');
 
 function http(){
     this.configurar = function(app){

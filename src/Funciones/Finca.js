@@ -1,4 +1,4 @@
-var conexion = require('./connections');
+var conexion = require('../db/connections');
 
 function MetodosDB() {
     this.seleccionar = function (respuesta) {
@@ -26,8 +26,6 @@ function MetodosDB() {
 
             })
         })
-
-
     }
     this.seleccionarNombre = function (nombre, respuesta) {
         conexion.obtener(function (er, cm) {
@@ -83,19 +81,6 @@ function MetodosDB() {
 
 
     }
-    // this.delete = function (id, respuesta) {
-    //     console.log(id);
-
-    //     conexion.obtener(function (er, cn) {
-    //         cn.query('delete from fincas where id = ?', id, function (error, resultado) {
-    //             if (error) {
-    //                 respuesta.send({ estado: 'Error' });
-    //             } else {
-    //                 respuesta.send({ estado: 'Ok' });
-    //             }
-    //         });
-    //     })
-    // }
 }
 
 module.exports = new MetodosDB();
