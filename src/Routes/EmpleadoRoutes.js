@@ -10,8 +10,8 @@ module.exports = function(app) {
     app.get('/empleados/api/:email/', function (solicitud, respuesta) {
         db.seleccionarEmail(solicitud.params.email, respuesta);
     })
-    app.get('/empleados/apip/:password/', function (solicitud, respuesta) {
-        db.seleccionarPassword(solicitud.params.password, respuesta);
+    app.get('/empleados/apip/:email/', function (solicitud, respuesta) {
+        db.seleccionarPassword(solicitud.params.email, respuesta);
     })
     app.post('/empleados/', function (solicitud, respuesta) {
         db.insertar(solicitud.body, respuesta);

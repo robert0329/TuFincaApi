@@ -21,7 +21,7 @@ function MetodosDB() {
         })
     }
         this.seleccionarEmail = function (email, respuesta) {
-            conexion.query('select email from empleados where email=?', email, function (error, resultado) {
+            conexion.query('select * from empleados where email=?', email, function (error, resultado) {
                 if (error) {
                     respuesta.send({ estado: 'error' });
                 } else {
@@ -29,8 +29,8 @@ function MetodosDB() {
                 }
             })
         }
-    this.seleccionarPassword = function (password, respuesta) {
-        conexion.query('select password from empleados where password=?', password, function (error, resultado) {
+    this.seleccionarPassword = function (email, respuesta) {
+        conexion.query('select password from empleados where email=?', email, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
