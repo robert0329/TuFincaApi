@@ -4,11 +4,14 @@ module.exports = function(app) {
     app.get('/empleados/', function (solicitud, respuesta) {
         db.seleccionar(respuesta);
     })
-    app.get('/empleados/:id/', function (solicitud, respuesta) {
-        db.seleccionarId(solicitud.params.id, respuesta);
+     app.get('/empleados/:id/', function (solicitud, respuesta) {
+         db.seleccionarId(solicitud.params.id, respuesta);
+     })
+    app.get('/empleados/api/:email/', function (solicitud, respuesta) {
+        db.seleccionarEmail(solicitud.params.email, respuesta);
     })
-    app.get('/empleados/:nombre/', function (solicitud, respuesta) {
-        db.seleccionarNombre(solicitud.params.nombre, respuesta);
+    app.get('/empleados/apip/:password/', function (solicitud, respuesta) {
+        db.seleccionarPassword(solicitud.params.password, respuesta);
     })
     app.post('/empleados/', function (solicitud, respuesta) {
         db.insertar(solicitud.body, respuesta);

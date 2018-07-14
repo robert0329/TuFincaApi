@@ -20,8 +20,17 @@ function MetodosDB() {
             }
         })
     }
-    this.seleccionarNombre = function (nombre, respuesta) {
-        conexion.query('select * from empleados where nombre=?', nombre, function (error, resultado) {
+        this.seleccionarEmail = function (email, respuesta) {
+            conexion.query('select email from empleados where email=?', email, function (error, resultado) {
+                if (error) {
+                    respuesta.send({ estado: 'error' });
+                } else {
+                    respuesta.send(resultado);
+                }
+            })
+        }
+    this.seleccionarPassword = function (password, respuesta) {
+        conexion.query('select password from empleados where password=?', password, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
