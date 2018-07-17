@@ -29,7 +29,17 @@ function MetodosDB() {
             }
         })
     }
+    this.seleccionarPersonaId = function (personaid, respuesta) {
+        conexion.query('select * from fincas where idpersona=?', personaid, function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'error' });
+            } else {
+                respuesta.send(resultado);
+            }
+        })
+    }
     this.insertar = function (datos, respuesta) {
+        console.log(datos);
         conexion.query('insert into fincas set ?', datos, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });

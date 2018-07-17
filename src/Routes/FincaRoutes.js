@@ -10,6 +10,9 @@ module.exports = function (app) {
     app.get('/finca/:nombre/', function (solicitud, respuesta) {
         db.seleccionarNombre(solicitud.params.nombre, respuesta);
     })
+    app.get('/finca/api/:personaid/', function (solicitud, respuesta) {
+        db.seleccionarPersonaId(solicitud.params.personaid, respuesta);  
+    })
     app.post('/finca/', function (solicitud, respuesta) {
         db.insertar(solicitud.body, respuesta);
     })
@@ -17,6 +20,6 @@ module.exports = function (app) {
         db.actualizar(solicitud.body, respuesta);
     })
     app.delete('/finca/:id/', function (solicitud, respuesta) {
-        db.borrar(solicitud.params.id, respuesta);
+        db.delete(solicitud.params.id, respuesta);
     })
 }

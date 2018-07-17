@@ -2,7 +2,7 @@ const DbConnection = require('../db/connections');
 const conexion = DbConnection();
 function MetodosDB() {
     this.seleccionar = function (respuesta) {
-        conexion.query('select * from empleados', function (error, resultado) {
+        conexion.query('select * from personas', function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' })
             } else {
@@ -10,9 +10,18 @@ function MetodosDB() {
             }
         })
     }
-
+    this.seleccionartareas = function (tipo, respuesta) {
+        console.log(tipo);
+        conexion.query('select * from personas where tipo=?', tipo, function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'error' });
+            } else {
+                respuesta.send(resultado);
+            }
+        })
+    }
     this.seleccionarId = function (id, respuesta) {
-        conexion.query('select * from empleados where id=?', id, function (error, resultado) {
+        conexion.query('select * from personas where id=?', id, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
@@ -21,7 +30,7 @@ function MetodosDB() {
         })
     }
         this.seleccionarEmail = function (email, respuesta) {
-            conexion.query('select * from empleados where email=?', email, function (error, resultado) {
+            conexion.query('select * from personas where email=?', email, function (error, resultado) {
                 if (error) {
                     respuesta.send({ estado: 'error' });
                 } else {
@@ -30,7 +39,7 @@ function MetodosDB() {
             })
         }
     this.seleccionarPassword = function (email, respuesta) {
-        conexion.query('select password from empleados where email=?', email, function (error, resultado) {
+        conexion.query('select* from personas where email=?', email, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
@@ -39,7 +48,8 @@ function MetodosDB() {
         })
     }
     this.insertar = function (datos, respuesta) {
-        conexion.query('insert into empleados set ?', datos, function (error, resultado) {
+        console.log(datos);
+        conexion.query('insert into personas set ?', datos, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
@@ -48,7 +58,7 @@ function MetodosDB() {
         })
     }
     this.actualizar = function (datos, respuesta) {
-        conexion.query('update empleados set ? where id = ?', [datos, datos.id], function (error, resultado) {
+        conexion.query('update personas set ? where id = ?', [datos, datos.id], function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
@@ -58,10 +68,10 @@ function MetodosDB() {
     }
     this.delete = function (id, respuesta)
      {
-        conexion.query('select * from empleados where id=?', id, function (error, result) {
+        conexion.query('select * from personas where id=?', id, function (error, result) {
             console.log(result);
             if (result) {
-                conexion.query('delete from empleados where id = ?', id, function (error, resultado) {
+                conexion.query('delete from personas where id = ?', id, function (error, resultado) {
                     if (error) {
                         respuesta.send({ estado: 'Error' });
                     } else {
