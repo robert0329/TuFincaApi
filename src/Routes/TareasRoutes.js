@@ -7,6 +7,9 @@ module.exports = function (app) {
     app.get('/tareas/:id/', function (solicitud, respuesta) {
         db.seleccionarId(solicitud.params.id, respuesta);
     })
+    app.get('/tareasempleado/:id/',function(solicitud, respuesta){
+        db.seleccionarTareaId(solicitud.params.id,respuesta);
+    })
     // app.get('/Tareas/:nombre/', function (solicitud, respuesta) {
     //     db.seleccionarNombre(solicitud.params.nombre, respuesta);
     // })
@@ -16,9 +19,9 @@ module.exports = function (app) {
      app.post('/tareas/', function (solicitud, respuesta) {
          db.insertar(solicitud.body, respuesta);
      })
-    // app.put('/Tareas/', function (solicitud, respuesta) {
-    //     db.actualizar(solicitud.body, respuesta);
-    // })
+     app.put('/tareas/', function (solicitud, respuesta) {
+         db.actualizar(solicitud.body, respuesta);
+     })
     // app.delete('/Tareas/:id/', function (solicitud, respuesta) {
     //     db.delete(solicitud.params.id, respuesta);
     // })

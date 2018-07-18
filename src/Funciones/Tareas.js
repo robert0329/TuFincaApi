@@ -30,6 +30,16 @@ function MetodosDB() {
             }
         })
     }
+    this.seleccionarTareaId = function (id, respuesta) {
+        console.log(id);
+        conexion.query('select * from tareas where idpersona=?', id, function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'error' });
+            } else {
+                respuesta.send(resultado);
+            }
+        })
+    }
     //     this.seleccionarEmail = function (email, respuesta) {
     //         conexion.query('select * from tareas where email=?', email, function (error, resultado) {
     //             if (error) {
@@ -58,15 +68,15 @@ function MetodosDB() {
              }
          })
      }
-    // this.actualizar = function (datos, respuesta) {
-    //     conexion.query('update tareas set ? where id = ?', [datos, datos.id], function (error, resultado) {
-    //         if (error) {
-    //             respuesta.send({ estado: 'Error' });
-    //         } else {
-    //             respuesta.send({ estado: 'Ok' });   
-    //         }
-    //     })
-    // }
+    this.actualizar = function (datos, respuesta) {
+        conexion.query('update tareas set ? where idtarea = ?', [datos, datos.idtarea], function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'Error' });
+            } else {
+                respuesta.send({ estado: 'Ok' });   
+            }
+        })
+    }
     // this.delete = function (id, respuesta)
     //  {
     //     conexion.query('select * from tareas where id=?', id, function (error, result) {
