@@ -10,6 +10,15 @@ function MetodosDB() {
             }
         })
     }
+    this.seleccionarpostlogin = function (respuesta) {
+        conexion.query('select * from postlogin', function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'Error' })
+            } else {
+                respuesta.send(resultado);
+            }
+        })
+    }
     this.seleccionartareas = function (tipo, respuesta) {
         console.log(tipo);
         conexion.query('select * from personas where tipo=?', tipo, function (error, resultado) {
@@ -34,15 +43,17 @@ function MetodosDB() {
                 if (error) {
                     respuesta.send({ estado: 'error' });
                 } else {
+                    console.log(resultado);
                     respuesta.send(resultado);
                 }
             })
         }
     this.seleccionarPassword = function (email, respuesta) {
-        conexion.query('select* from personas where email=?', email, function (error, resultado) {
+        conexion.query('select password from personas where email=?', email, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
+                
                 respuesta.send(resultado);
             }
         })
@@ -50,6 +61,16 @@ function MetodosDB() {
     this.insertar = function (datos, respuesta) {
         console.log(datos);
         conexion.query('insert into personas set ?', datos, function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'Error' });
+            } else {
+                respuesta.send({ estado: 'Ok' });
+            }
+        })
+    }
+    this.insertarpostlogin = function (datos, respuesta) {
+        console.log(datos);
+        conexion.query('insert into postlogin set ?', datos, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
@@ -72,6 +93,24 @@ function MetodosDB() {
             console.log(result);
             if (result) {
                 conexion.query('delete from personas where id = ?', id, function (error, resultado) {
+                    if (error) {
+                        respuesta.send({ estado: 'Error' });
+                    } else {
+                        respuesta.send({ estado: 'Ok' });
+                    }
+                });
+            }
+            else {
+                respuesta.send({ estado: "No Existe" });
+            }
+        });  
+    }
+    this.DeletePostLogin = function (id, respuesta)
+     {
+        conexion.query('select * from postlogin where idpersona=?', id, function (error, result) {
+            console.log(result);
+            if (result) {
+                conexion.query('delete from postlogin where idpersona = ?', id, function (error, resultado) {
                     if (error) {
                         respuesta.send({ estado: 'Error' });
                     } else {
