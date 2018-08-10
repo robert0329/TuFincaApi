@@ -17,8 +17,10 @@ app.use(bodyParser.json());
 require('./Routes/FincaRoutes')(app);
 require('./Routes/EmpleadoRoutes')(app);
 require('./Routes/TareasRoutes')(app);
-
+require('./Routes/FrutosRoutes')(app);
+require('./Routes/InventarioRoutes')(app);
+require('./Routes/HerramientasRoutes')(app);
 //statics files
 app.listen(app.get('port'), () =>{
-    console.log('server on port ' + app.get('port'));
+    console.log('Server Started on port ' + app.get('port'));
 });

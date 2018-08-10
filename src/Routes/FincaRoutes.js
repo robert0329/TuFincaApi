@@ -10,8 +10,8 @@ module.exports = function (app) {
     app.get('/finca/:nombre/', function (solicitud, respuesta) {
         db.seleccionarNombre(solicitud.params.nombre, respuesta);
     })
-    app.get('/finca/api/:personaid/', function (solicitud, respuesta) {
-        db.seleccionarPersonaId(solicitud.params.personaid, respuesta);  
+    app.get('/finca/api/:idpersona/', function (solicitud, respuesta) {
+        db.seleccionarPersonaId(solicitud.params.idpersona, respuesta);  
     })
     app.post('/finca/', function (solicitud, respuesta) {
         db.insertar(solicitud.body, respuesta);

@@ -16,6 +16,9 @@ module.exports = function(app) {
     app.get('/personas/email/:email/', function (solicitud, respuesta) {
         db.seleccionarEmail(solicitud.params.email, respuesta);
     })
+    app.get('/personass/', function (solicitud, respuesta) {
+        db.seleccionartareasf(respuesta);
+    })
     app.get('/personas/password/:email/', function (solicitud, respuesta) {
         db.seleccionarPassword(solicitud.params.email, respuesta);
     })
@@ -31,7 +34,7 @@ module.exports = function(app) {
     app.delete('/personas/:id/', function (solicitud, respuesta) {
         db.delete(solicitud.params.id, respuesta);
     })
-    app.delete('/postlogin/:id/', function (solicitud, respuesta) {
-        db.DeletePostLogin(solicitud.params.id, respuesta);
+    app.delete('/deletelogin/:email/', function (solicitud, respuesta) {
+        db.DeletePostLogin(solicitud.params.email, respuesta);
     })
 }

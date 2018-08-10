@@ -20,8 +20,16 @@ function MetodosDB() {
         })
     }
     this.seleccionartareas = function (tipo, respuesta) {
-        console.log(tipo);
-        conexion.query('select * from personas where tipo=?', tipo, function (error, resultado) {
+        conexion.query('select * from personas where finca=?', tipo, function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'error' });
+            } else {
+                respuesta.send(resultado);
+            }
+        })
+    }
+    this.seleccionartareasf = function (respuesta) {
+        conexion.query('select idpersona, C.tipo, C.nombre, C.finca FROM personas C INNER JOIN postlogin O ON O.email = C.email', function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
@@ -105,12 +113,12 @@ function MetodosDB() {
             }
         });  
     }
-    this.DeletePostLogin = function (id, respuesta)
+    this.DeletePostLogin = function (email, respuesta)
      {
-        conexion.query('select * from postlogin where idpersona=?', id, function (error, result) {
+        conexion.query('select * from postlogin where idpostlogin=?', 1, function (error, result) {
             console.log(result);
             if (result) {
-                conexion.query('delete from postlogin where idpersona = ?', id, function (error, resultado) {
+                conexion.query('delete from postlogin where idpostlogin = ?', 1, function (error, resultado) {
                     if (error) {
                         respuesta.send({ estado: 'Error' });
                     } else {

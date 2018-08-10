@@ -2,7 +2,7 @@ const DbConnection = require('../db/connections');
 const conexion = DbConnection();
 function MetodosDB() {
     this.seleccionar = function (respuesta) {
-        conexion.query('select * from fincas', function (error, resultado) {
+        conexion.query('select * from Inventario', function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' })
             } else {
@@ -10,9 +10,8 @@ function MetodosDB() {
             }
         })
     }
-
     this.seleccionarId = function (id, respuesta) {
-        conexion.query('select * from fincas where id=?', id, function (error, resultado) {
+        conexion.query('select * from Inventario where idInventario=?', id, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
@@ -20,17 +19,8 @@ function MetodosDB() {
             }
         })
     }
-    this.seleccionarNombre = function (nombre, respuesta) {
-        conexion.query('select * from fincas where nombre=?', nombre, function (error, resultado) {
-            if (error) {
-                respuesta.send({ estado: 'error' });
-            } else {
-                respuesta.send(resultado);
-            }
-        })
-    }
-    this.seleccionarPersonaId = function (idpersona, respuesta) {
-        conexion.query('select * from fincas where idpersona=?', idpersona, function (error, resultado) {
+    this.InventarioH = function (idHerramientas, respuesta) {
+        conexion.query('select * from Inventario where idHerramientas=?', idHerramientas, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
@@ -39,8 +29,7 @@ function MetodosDB() {
         })
     }
     this.insertar = function (datos, respuesta) {
-        console.log(datos);
-        conexion.query('insert into fincas set ?', datos, function (error, resultado) {
+        conexion.query('insert into Inventario set ?', datos, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
@@ -49,20 +38,19 @@ function MetodosDB() {
         })
     }
     this.actualizar = function (datos, respuesta) {
-        conexion.query('update fincas set ? where id = ?', [datos, datos.id], function (error, resultado) {
+        conexion.query('update Inventario set ? where idInventario = ?', [datos, datos.idinventario], function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
-                respuesta.send({ estado: 'Ok' });   
+                respuesta.send({ estado: 'Ok' });
             }
         })
     }
-    this.delete = function (id, respuesta)
-     {
-        conexion.query('select * from fincas where id=?', id, function (error, result) {
-            console.log(result);
+    this.delete = function (id, respuesta) {
+        console.log(id);
+        conexion.query('select * from Inventario where idInventario=?', id, function (error, result) {
             if (result) {
-                conexion.query('delete from fincas where id = ?', id, function (error, resultado) {
+                conexion.query('delete from frutos where idInventario = ?', id, function (error, resultado) {
                     if (error) {
                         respuesta.send({ estado: 'Error' });
                     } else {
@@ -73,7 +61,7 @@ function MetodosDB() {
             else {
                 respuesta.send({ estado: "No Existe" });
             }
-        });  
+        });
     }
 }
 module.exports = new MetodosDB();
