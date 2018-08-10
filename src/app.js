@@ -20,6 +20,7 @@ require('./Routes/TareasRoutes')(app);
 require('./Routes/FrutosRoutes')(app);
 require('./Routes/InventarioRoutes')(app);
 require('./Routes/HerramientasRoutes')(app);
+require('./Routes/ProductosRoutes')(app);
 //statics files
 app.listen(app.get('port'), () =>{
     console.log('Server Started on port ' + app.get('port'));
