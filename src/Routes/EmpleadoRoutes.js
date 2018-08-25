@@ -37,4 +37,7 @@ module.exports = function(app) {
     app.delete('/deletelogin/:email/', function (solicitud, respuesta) {
         db.DeletePostLogin(solicitud.params.email, respuesta);
     })
+    app.get('/personas1/', function (solicitud, respuesta) {
+        db.authenticate(solicitud.body, respuesta);
+    })
 }

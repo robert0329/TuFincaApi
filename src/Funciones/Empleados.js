@@ -1,5 +1,9 @@
 const DbConnection = require('../db/connections');
+var user = require('../models/user');
+var jwt = require('jwt-simple');
+
 const conexion = DbConnection();
+
 function MetodosDB() {
     this.seleccionar = function (respuesta) {
         conexion.query('select * from personas', function (error, resultado) {
@@ -46,22 +50,22 @@ function MetodosDB() {
             }
         })
     }
-        this.seleccionarEmail = function (email, respuesta) {
-            conexion.query('select * from personas where email=?', email, function (error, resultado) {
-                if (error) {
-                    respuesta.send({ estado: 'error' });
-                } else {
-                    console.log(resultado);
-                    respuesta.send(resultado);
-                }
-            })
-        }
+    this.seleccionarEmail = function (email, respuesta) {
+        conexion.query('select * from personas where email=?', email, function (error, resultado) {
+            if (error) {
+                respuesta.send({ estado: 'error' });
+            } else {
+                console.log(resultado);
+                respuesta.send(resultado);
+            }
+        })
+    }
     this.seleccionarPassword = function (email, respuesta) {
         conexion.query('select password from personas where email=?', email, function (error, resultado) {
             if (error) {
                 respuesta.send({ estado: 'error' });
             } else {
-                
+
                 respuesta.send(resultado);
             }
         })
@@ -91,12 +95,11 @@ function MetodosDB() {
             if (error) {
                 respuesta.send({ estado: 'Error' });
             } else {
-                respuesta.send({ estado: 'Ok' });   
+                respuesta.send({ estado: 'Ok' });
             }
         })
     }
-    this.delete = function (id, respuesta)
-     {
+    this.delete = function (id, respuesta) {
         conexion.query('select * from personas where id=?', id, function (error, result) {
             console.log(result);
             if (result) {
@@ -111,10 +114,9 @@ function MetodosDB() {
             else {
                 respuesta.send({ estado: "No Existe" });
             }
-        });  
+        });
     }
-    this.DeletePostLogin = function (email, respuesta)
-     {
+    this.DeletePostLogin = function (email, respuesta) {
         conexion.query('select * from postlogin where idpostlogin=?', 1, function (error, result) {
             console.log(result);
             if (result) {
@@ -129,7 +131,39 @@ function MetodosDB() {
             else {
                 respuesta.send({ estado: "No Existe" });
             }
-        });  
+        });
+    }
+
+    this.authenticate = function (req, res) {
+        conexion.findOne({
+            email: req.body.email
+        }, function (err, user) {
+            if (err) throw err;
+            if (!user) {
+                res.status(403).send({ success: false, msg: 'Authentication failed, User not found' });
+            }
+            else {
+                user.comparepassword(req.body.password, function (err, isMatch) {
+                    if (isMatch && !err) {
+                        var token = jwt.encode(user, config.secret);
+                        res.json({ success: true, token: token });
+                    } else {
+                        return res.status(403).send({ success: false, msg: 'Authenticaton failed, wrong password.' });
+                    }
+                })
+            }
+        })
+    }
+
+    this.getinfo = function (req, res) {
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            var token = req.headers.authorization.split(' ')[1];
+            var decodedtoken = jwt.decode(token, config.secret);
+            return res.json({ success: true, msg: 'hello ' + decodedtoken.name });
+        }
+        else {
+            return res.json({ success: false, msg: 'No header' });
+        }
     }
 }
 module.exports = new MetodosDB();

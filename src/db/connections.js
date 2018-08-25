@@ -6,6 +6,6 @@ module.exports = () => {
         user: 'root', //root
         password: '',
         database: 'finca',
-        
+        secret: 'yoursecret'
     });
 };

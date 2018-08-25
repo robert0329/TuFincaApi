@@ -21,6 +21,9 @@ require('./Routes/FrutosRoutes')(app);
 require('./Routes/InventarioRoutes')(app);
 require('./Routes/HerramientasRoutes')(app);
 require('./Routes/ProductosRoutes')(app);
+require('./Routes/parcelasRoutes')(app);
+require('./Routes/siembrasRoutes')(app);
+require('./Routes/cosechaRoutes')(app);
 //statics files
 app.listen(app.get('port'), () =>{
     console.log('Server Started on port ' + app.get('port'));
